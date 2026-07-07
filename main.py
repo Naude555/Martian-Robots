@@ -15,9 +15,6 @@ def main():
     for i in range(1, len(lines), 2):
         robots.append(parse_robot(lines[i], lines[i + 1]))
 
-    print(f"World: ({world.max_x}, {world.max_y})")
-    print()
-
     for robot in robots:
         simulate(robot, world)
         print(f"{robot.x} {robot.y} {robot.direction}{' LOST' if robot.lost else ''}")
