@@ -2,6 +2,7 @@ import sys
 
 from robot import Robot
 from simulator import simulate
+from world import World
 
 
 def parse_robot(position, instructions):
@@ -17,20 +18,18 @@ def parse_robot(position, instructions):
 def main():
     lines = [line.strip() for line in sys.stdin if line.strip()]
 
-    max_x, max_y = map(int, lines[0].split())
-
-    scents = set()
+    world = World(max_x=int(lines[0].split()[0]), max_y=int(lines[0].split()[1]), scents=set())
 
     robots = []
 
     for i in range(1, len(lines), 2):
         robots.append(parse_robot(lines[i], lines[i + 1]))
 
-    print(f"World: ({max_x}, {max_y})")
+    print(f"World: ({world.max_x}, {world.max_y})")
     print()
 
     for robot in robots:
-        simulate(robot, max_x, max_y, scents)
+        simulate(robot, world.max_x, world.max_y, world.scents)
         print(f"{robot.x} {robot.y} {robot.direction}{' LOST' if robot.lost else ''}")
 
 
