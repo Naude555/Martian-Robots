@@ -52,33 +52,30 @@ def main():
 
     for robot in robots:
 
-        x = robot.x
-        y = robot.y
-        direction = robot.direction
         instructions = robot.instructions
         lost = robot.lost
 
         for instruction in instructions:
             if instruction == "L":
-                direction = LEFT[direction]
+                robot.direction = LEFT[robot.direction]
             elif instruction == "R":
-                direction = RIGHT[direction]
+                robot.direction = RIGHT[robot.direction]
             elif instruction == "F":
-                dx, dy = MOVE[direction]
-                next_x = x + dx
-                next_y = y + dy
+                dx, dy = MOVE[robot.direction]
+                next_x = robot.x + dx
+                next_y = robot.y + dy
 
                 if 0 <= next_x <= max_x and 0 <= next_y <= max_y:
-                    x, y = next_x, next_y
+                    robot.x, robot.y = next_x, next_y
                 else:
-                    scent = (x, y, direction)
+                    scent = (robot.x, robot.y, robot.direction)
                     if scent in scents:
                         continue
 
                     scents.add(scent)
                     robot.lost = True
                     break
-        print(f"{x} {y} {direction}{' LOST' if robot.lost else ''}")
+        print(f"{robot.x} {robot.y} {robot.direction}{' LOST' if robot.lost else ''}")
 
 
 if __name__ == "__main__":
