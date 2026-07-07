@@ -1,29 +1,8 @@
 import sys
 
 from robot import Robot
+from simulator import simulate
 
-# How do we turn
-LEFT = {
-    "N": "W",
-    "W": "S",
-    "S": "E",
-    "E": "N",
-}
-
-RIGHT = {
-    "N": "E",
-    "E": "S",
-    "S": "W",
-    "W": "N",
-}
-
-# How do we move 
-MOVE = {
-    "N": (0, 1),
-    "E": (1, 0),
-    "S": (0, -1),
-    "W": (-1, 0),
-}
 
 def parse_robot(position, instructions):
     x, y, direction = position.split()
@@ -51,30 +30,7 @@ def main():
     print()
 
     for robot in robots:
-
-        instructions = robot.instructions
-        lost = robot.lost
-
-        for instruction in instructions:
-            if instruction == "L":
-                robot.direction = LEFT[robot.direction]
-            elif instruction == "R":
-                robot.direction = RIGHT[robot.direction]
-            elif instruction == "F":
-                dx, dy = MOVE[robot.direction]
-                next_x = robot.x + dx
-                next_y = robot.y + dy
-
-                if 0 <= next_x <= max_x and 0 <= next_y <= max_y:
-                    robot.x, robot.y = next_x, next_y
-                else:
-                    scent = (robot.x, robot.y, robot.direction)
-                    if scent in scents:
-                        continue
-
-                    scents.add(scent)
-                    robot.lost = True
-                    break
+        simulate(robot, max_x, max_y, scents)
         print(f"{robot.x} {robot.y} {robot.direction}{' LOST' if robot.lost else ''}")
 
 
