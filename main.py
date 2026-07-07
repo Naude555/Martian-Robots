@@ -1,19 +1,8 @@
 import sys
 
-from src.robot import Robot
 from src.simulator import simulate
 from src.world import World
-
-
-def parse_robot(position, instructions):
-    x, y, direction = position.split()
-
-    return Robot(
-        x=int(x),
-        y=int(y),
-        direction=direction,
-        instructions=instructions,
-    )
+from src.parser import parse_robot
 
 def main():
     lines = [line.strip() for line in sys.stdin if line.strip()]
