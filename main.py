@@ -76,9 +76,9 @@ def main():
                         continue
 
                     scents.add(scent)
-                    lost = True
+                    robot.lost = True
                     break
-        print(f"{x} {y} {direction}{' LOST' if lost else ''}")
+        print(f"{x} {y} {direction}{' LOST' if robot.lost else ''}")
 
 
 if __name__ == "__main__":
