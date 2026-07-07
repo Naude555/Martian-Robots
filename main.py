@@ -1,5 +1,7 @@
 import sys
 
+from robot import Robot
+
 # How do we turn
 LEFT = {
     "N": "W",
@@ -26,12 +28,12 @@ MOVE = {
 def parse_robot(position, instructions):
     x, y, direction = position.split()
 
-    return {
-        "x": int(x),
-        "y": int(y),
-        "direction": direction,
-        "instructions": instructions,
-    }
+    return Robot(
+        x=int(x),
+        y=int(y),
+        direction=direction,
+        instructions=instructions,
+    )
 
 def main():
     lines = [line.strip() for line in sys.stdin if line.strip()]
@@ -49,12 +51,13 @@ def main():
     print()
 
     for robot in robots:
-        x = robot["x"]
-        y = robot["y"]
-        direction = robot["direction"]
-        instructions = robot["instructions"]
 
-        lost = False
+        x = robot.x
+        y = robot.y
+        direction = robot.direction
+        instructions = robot.instructions
+        lost = robot.lost
+
         for instruction in instructions:
             if instruction == "L":
                 direction = LEFT[direction]
