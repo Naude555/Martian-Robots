@@ -1,8 +1,8 @@
 import sys
 
-from robot import Robot
-from simulator import simulate
-from world import World
+from src.robot import Robot
+from src.simulator import simulate
+from src.world import World
 
 
 def parse_robot(position, instructions):

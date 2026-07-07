@@ -1,4 +1,4 @@
-from direction import LEFT, RIGHT, MOVE
+from src.direction import LEFT, RIGHT, MOVE
 
 def simulate(robot, max_x,max_y, scents):
     for instruction in robot.instructions:
