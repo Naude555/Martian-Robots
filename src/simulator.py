@@ -1,6 +1,9 @@
 from src.direction import LEFT, RIGHT, MOVE
+from src.robot import Robot
+from src.world import World
 
-def simulate(robot, max_x,max_y, scents):
+
+def simulate(robot: Robot, world: World) -> None:
     for instruction in robot.instructions:
         if instruction == "L":
             robot.direction = LEFT[robot.direction]
@@ -11,13 +14,12 @@ def simulate(robot, max_x,max_y, scents):
             next_x = robot.x + dx
             next_y = robot.y + dy
 
-            if 0 <= next_x <= max_x and 0 <= next_y <= max_y:
+            if world.contains(next_x, next_y):
                 robot.x, robot.y = next_x, next_y
             else:
-                scent = (robot.x, robot.y, robot.direction)
-                if scent in scents:
+                if world.has_scent(robot.x, robot.y, robot.direction):
                     continue
 
-                scents.add(scent)
+                world.add_scent(robot.x, robot.y, robot.direction)
                 robot.lost = True
                 break
